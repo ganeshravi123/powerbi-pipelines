@@ -1,0 +1,28 @@
+table SALES_PERCENT
+	lineageTag: dcb87032-6a6d-43f1-b3a1-39c4895d113e
+
+	measure 'SALES_PERCENT Value' = SELECTEDVALUE('SALES_PERCENT'[SALES_PERCENT], 1)
+		lineageTag: 9e4fe0c8-b77e-4a88-934e-77ecd84f8bc1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SALES_PERCENT
+		lineageTag: ddd377c6-d9fb-4c69-b8eb-0ae70bf9698b
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition SALES_PERCENT = calculated
+		mode: import
+		source = GENERATESERIES(1, 2, 0.01)
+
+	annotation PBI_Id = ffcf6857e8354bfea7cc0188a6282b84
+

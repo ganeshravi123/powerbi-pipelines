@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "poc-Pipelines"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8a01ba3a-2a77-4162-b809-6dadfdcfa254"
+  }
+}

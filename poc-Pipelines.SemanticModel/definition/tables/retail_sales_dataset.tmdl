@@ -1,0 +1,111 @@
+table retail_sales_dataset
+	lineageTag: 97964381-472c-4d01-b5bb-fcbbcab47a7b
+
+	measure TOTAL_SALES = SUM(retail_sales_dataset[Total Amount])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 3637e7f0-9e75-46f7-b3b0-42b5c005b4b3
+
+	measure SALES_PERCENTAGE = [TOTAL_SALES]*SALES_PERCENT[SALES_PERCENT Value]
+		lineageTag: 9a88e2ab-8c03-4521-9f24-9697ec33f356
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Transaction ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8dc9f723-6137-43fb-87e9-82c440baca8d
+		summarizeBy: count
+		sourceColumn: Transaction ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0cbeafd9-ece5-4631-b99a-10a2d089e69f
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 75557351-2f3b-4651-b684-e09158aa6424
+			defaultHierarchy: LocalDateTable_861897e7-5847-4c6d-89eb-e492c9909dd6.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Customer ID'
+		dataType: string
+		lineageTag: 1fc6dfc1-1dd8-4b1d-87da-b73d796297e2
+		summarizeBy: none
+		sourceColumn: Customer ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: 6034b30b-0f2a-4d90-a22f-f0686335bb8b
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: int64
+		formatString: 0
+		lineageTag: 519b403c-ce81-4513-96a0-8477b8f97abb
+		summarizeBy: sum
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Category'
+		dataType: string
+		lineageTag: f526e36e-f21d-418c-9663-fe9554927ee4
+		summarizeBy: none
+		sourceColumn: Product Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 8fa4fe5e-1493-4cb4-98f5-eb644b6f77d7
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Price per Unit'
+		dataType: int64
+		formatString: 0
+		lineageTag: 28b38b7c-6610-4e56-99cf-d5de9034c824
+		summarizeBy: sum
+		sourceColumn: Price per Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Amount'
+		dataType: int64
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 1d2bfdb5-71d3-47e0-9576-0c568333e553
+		summarizeBy: sum
+		sourceColumn: Total Amount
+
+		annotation SummarizationSetBy = Automatic
+
+	partition retail_sales_dataset = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\ganesh.ravi\Downloads\retail_sales_dataset.csv"),[Delimiter=",", Columns=9, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Transaction ID", Int64.Type}, {"Date", type date}, {"Customer ID", type text}, {"Gender", type text}, {"Age", Int64.Type}, {"Product Category", type text}, {"Quantity", Int64.Type}, {"Price per Unit", Int64.Type}, {"Total Amount", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

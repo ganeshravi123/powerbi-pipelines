@@ -1,0 +1,23 @@
+model Model
+	culture: en-IN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["retail_sales_dataset"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.138.1452.0 (24.11)
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table retail_sales_dataset
+ref table DateTableTemplate_5e32b28d-3fcf-4e65-bdce-abaa0b644cb0
+ref table LocalDateTable_861897e7-5847-4c6d-89eb-e492c9909dd6
+ref table SALES_PERCENT
+
+ref cultureInfo en-IN
+
