@@ -1,31 +1,40 @@
-name: Power BI Project Handling
+name: JSON Project Workflow
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
 
 jobs:
-  process-pbip:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install jq (JSON processor)
-      run: sudo apt-get install -y jq
-    - name: Read JSON values from pbip file
-      run: |
-        json_file="path/to/your/project.json"
-        key_value=$(jq '.yourKey' "$json_file")
-        echo "Value of yourKey: $key_value"
-    - name: Perform actions with JSON data
-      run: |
-        # Example: Using the JSON data in some commands or scripts
-        echo "Processing with key value: $key_value"
-    - name: Push main branch into production
-      uses: codingforentrepreneurs/action-branch-to-branch@main
-      with:
-        dest_branch: 'production-v1'
-        source_branch: 'main'
-        commit_message: 'Release production version'
-      env:
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install jq (JSON processor)
+        run: sudo apt-get install -y jq
+
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install JSON npm packages
+        run: |
+          npm install -g json
+          npm install -g jsonlint
+
+      - name: Push main branch into production
+        uses: codingforentrepreneurs/action-branch-to-branch@main
+        with:
+          dest_branch: 'production-v1'
+          source_branch: 'main'
+          commit_message: 'Release production version'
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_SECRET }}
+          
+
