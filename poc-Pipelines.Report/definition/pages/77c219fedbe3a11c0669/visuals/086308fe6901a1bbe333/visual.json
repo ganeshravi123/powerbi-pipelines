@@ -1,38 +1,19 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.5.0/schema.json",
-  "name": "0032c5abbb94d73b43f4",
+  "name": "086308fe6901a1bbe333",
   "position": {
-    "x": 12.953826691967111,
-    "y": 459.8608475648324,
-    "z": 4000,
-    "height": 260.69576217583807,
-    "width": 362.7071473750791,
-    "tabOrder": 4000
+    "x": 71.2460468058191,
+    "y": 132.77672359266288,
+    "z": 0,
+    "height": 161.92283364958888,
+    "width": 378.899430740038,
+    "tabOrder": 0
   },
   "visual": {
-    "visualType": "pieChart",
+    "visualType": "card",
     "query": {
       "queryState": {
-        "Category": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "retail_sales_dataset"
-                    }
-                  },
-                  "Property": "Gender"
-                }
-              },
-              "queryRef": "retail_sales_dataset.Gender",
-              "nativeQueryRef": "Gender",
-              "active": true
-            }
-          ]
-        },
-        "Y": {
+        "Values": {
           "projections": [
             {
               "field": {
@@ -44,14 +25,14 @@
                           "Entity": "retail_sales_dataset"
                         }
                       },
-                      "Property": "Customer ID"
+                      "Property": "Total Amount"
                     }
                   },
-                  "Function": 5
+                  "Function": 0
                 }
               },
-              "queryRef": "CountNonNull(retail_sales_dataset.Customer ID)",
-              "nativeQueryRef": "Count of Customer ID"
+              "queryRef": "Sum(retail_sales_dataset.Total Amount)",
+              "nativeQueryRef": "Sum of Total Amount"
             }
           ]
         }
@@ -68,10 +49,10 @@
                         "Entity": "retail_sales_dataset"
                       }
                     },
-                    "Property": "Customer ID"
+                    "Property": "Total Amount"
                   }
                 },
-                "Function": 5
+                "Function": 0
               }
             },
             "direction": "Descending"
@@ -80,6 +61,21 @@
         "isDefaultSort": true
       }
     },
+    "objects": {
+      "categoryLabels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -87,7 +83,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Count of Customer by Gender'"
+                  "Value": "'Total Amount'"
                 }
               }
             },
@@ -102,6 +98,18 @@
               "expr": {
                 "Literal": {
                   "Value": "true"
+                }
+              }
+            },
+            "background": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0.6
+                    }
+                  }
                 }
               }
             },
@@ -130,18 +138,6 @@
               "expr": {
                 "Literal": {
                   "Value": "'''Times New Roman'''"
-                }
-              }
-            },
-            "background": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 2,
-                      "Percent": 0.6
-                    }
-                  }
                 }
               }
             }

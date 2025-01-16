@@ -1,15 +1,16 @@
 name: power-bi Project Workflow
 
 on:
-  pull_request_review:
-    types: [submitted]
+  pull_request:
     branches:
       - main
+    types:
+      - closed
 
 jobs:
   build-and-deploy:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    if: github.event.review.state == 'approved'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -35,4 +36,5 @@ jobs:
           commit_message: 'Release production version'
         env:
           GITHUB_TOKEN: ${{ secrets.MY_SECRET }}
+
 
